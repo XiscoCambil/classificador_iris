@@ -12,5 +12,5 @@ def predict():
     new_flower = np.array(data['new_flower']).reshape(1, -1)
 
     prediction = regression_logistic_predict(new_flower)
-    # Devolver la predicción como JSON
+    
     return jsonify({'prediccion': int(prediction[0])})

@@ -1,8 +1,8 @@
 import pickle
 
-def regression_logistic_predict(new_flower):
+def decision_tree_predict(new_flower):
 
-    with open('../models/regression_logistic_model.pck', 'rb') as f:
+    with open('../models/decision_tree_model.pck', 'rb') as f:
         loaded_model, loaded_sc  = pickle.load(f)
 
     new_flower_std = loaded_sc.transform(new_flower)
