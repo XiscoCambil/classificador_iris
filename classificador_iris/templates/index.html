@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificador de iris (flor)</title>
+</head>
+<body>
+
+<h1>Clasificador de iris (flor)</h1>
+
+<form id="formularioRL">
+    <label for="Amplada del petal">Amplada del petal:</label>
+    <input type="number" id="width" name="number" step="0.01" required>
+
+    <label for="Llargari del petal">Llargari del petal:</label>
+    <input type="number" id="length" name="number"  step="0.01" required>
+
+    <label for="tipoPrediccion">Algoritme de predicció:</label>
+    <select id="tipoPrediccion" name="tipoPrediccion">
+        <option value="/regression_logistic_predict">Regresión Logística</option>
+        <option value="/svm_predict">SVM</option>
+        <option value="/knn_predict">KNN</option>
+        <option value="/decision_tree_predict">DecisionTree</option>
+    </select>
+
+    <button type="button" onclick="enviarFormulario()">Enviar</button>
+    <button type="button" onclick="limparRespuesta()">Clear</button>
+</form>
+
+<div id="resultado"></div>
+
+<script>
+    function enviarFormulario(endpoint){
+        var width = document.getElementById("width").value;
+        var length = document.getElementById("length").value;
+        
+        if(width == undefined || width == null || width == 0 ){
+            alert("te que indicar un valor d'amplada que sigui major que 0");
+            return;
+        }
+
+        if(length == undefined || length == null || length == 0 ){
+            alert("te que indicar un valor de llargaria que sigui major que 0");
+            return;
+        }
+
+        document.getElementById("resultado").innerHTML = "";
+
+        var selectOption = document.getElementById("tipoPrediccion").value;
+
+        var data = [width, length];
+
+        var jsonData = {
+            new_flower: data,
+        };
+
+        fetch(selectOption, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("resultado").innerHTML = "El tipus de flor es: " + data.prediccion;
+        })
+        .catch(error => {
+            console.error("Error al realizar la solicitud:", error);
+        });
+    }
+
+    function limparRespuesta(){
+        document.getElementById("resultado").innerHTML = "";
+    }
+
+
+</script>
+
+</body>
+</html>

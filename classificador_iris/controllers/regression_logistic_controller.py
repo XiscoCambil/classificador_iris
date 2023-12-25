@@ -12,5 +12,7 @@ def predict():
     new_flower = np.array(data['new_flower']).reshape(1, -1)
 
     prediction = regression_logistic_predict(new_flower)
+
+    res = "Iris Setosa (target 0)" if prediction[0] == 0 else ( "Iris Versicolour (target 1)" if prediction[0] == 1 else "Iris Virginica (target 2)")
     
-    return jsonify({'prediccion': int(prediction[0])})
+    return jsonify({'prediccion': res})

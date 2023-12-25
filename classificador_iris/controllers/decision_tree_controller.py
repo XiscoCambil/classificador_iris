@@ -13,4 +13,6 @@ def predict():
 
     prediction = decision_tree_predict(new_flower)
    
-    return jsonify({'prediccion': int(prediction[0])})
+    res = "Iris Setosa (target 0)" if prediction[0] == 0 else ( "Iris Versicolour (target 1)" if prediction[0] == 1 else "Iris Virginica (target 2)")
+
+    return jsonify({'prediccion': res})
