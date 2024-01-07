@@ -32,24 +32,22 @@
 
 <script>
     function enviarFormulario(endpoint){
-        var width = document.getElementById("width").value;
-        var length = document.getElementById("length").value;
+        const width = document.getElementById("width").value;
+        const length = document.getElementById("length").value;
         
-        if(width == undefined || width == null || width == 0 ){
+        if(!width || width == 0 ){
             alert("te que indicar un valor d'amplada que sigui major que 0");
             return;
-        }
 
-        if(length == undefined || length == null || length == 0 ){
+        }else if(!length || length == 0 ){
             alert("te que indicar un valor de llargaria que sigui major que 0");
             return;
         }
 
-        document.getElementById("resultado").innerHTML = "";
+        limparRespuesta()
 
-        var selectOption = document.getElementById("tipoPrediccion").value;
-
-        var data = [width, length];
+        const selectOption = document.getElementById("tipoPrediccion").value;
+        const data = [width, length];
 
         var jsonData = {
             new_flower: data,
